@@ -177,7 +177,7 @@ module Hanami
       end
 
       def _message(message)
-        "'#{message}'"
+        %("#{message}")
       end
     end
 

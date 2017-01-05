@@ -312,7 +312,7 @@ describe Hanami::Logger do
               class TestLogger < Hanami::Logger; end
               TestLogger.new(formatter: nil).info('foo')
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message='foo'\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"foo\"\n"
         end
       end
     end
@@ -402,7 +402,7 @@ describe Hanami::Logger do
               class TestLogger < Hanami::Logger; end
               TestLogger.new(formatter: :default).info('foo')
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message='foo'\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"foo\"\n"
         end
       end
 
@@ -413,7 +413,7 @@ describe Hanami::Logger do
               class TestLogger < Hanami::Logger; end
               TestLogger.new.info('foo')
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message='foo'\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"foo\"\n"
         end
       end
 
@@ -424,7 +424,7 @@ describe Hanami::Logger do
               class TestLogger < Hanami::Logger; end
               TestLogger.new.error(Exception.new('foo'))
             end
-          output.must_equal "app=Hanami severity=ERROR time=1988-09-01T00:00:00+00:00 message='foo' backtrace=[] error=Exception\n"
+          output.must_equal "app=Hanami severity=ERROR time=1988-09-01T00:00:00+00:00 message=\"foo\" backtrace=[] error=Exception\n"
         end
       end
 
@@ -446,7 +446,7 @@ describe Hanami::Logger do
               class TestLogger < Hanami::Logger; end
               TestLogger.new.info(['foo'])
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\'[\"foo\"]\'\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"[\"foo\"]\"\n"
         end
       end
 
@@ -455,9 +455,9 @@ describe Hanami::Logger do
           output =
             stub_stdout_constant do
               class TestLogger < Hanami::Logger; end
-              TestLogger.new.info('This is a message with spaces')
+              TestLogger.new.info("This is a message with quotes \" ' and with spaces")
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\'This is a message with spaces\'\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"This is a message with quotes \" ' and with spaces\"\n"
         end
       end
     end
