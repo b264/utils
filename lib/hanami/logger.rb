@@ -145,7 +145,7 @@ module Hanami
         _format({
           app:      @application_name,
           severity: severity,
-          time:     time.utc.to_datetime.rfc3339
+          time:     time.utc.strftime("%FT%T%:z")
         }.merge(
           _message_hash(msg)
         ))
