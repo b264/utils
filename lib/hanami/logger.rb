@@ -161,12 +161,12 @@ module Hanami
           message
         when Exception
           Hash[
-            message:   message.message,
+            message:   _message(message.message),
             backtrace: message.backtrace || [],
             error:     message.class
           ]
         else
-          Hash[message: message]
+          Hash[message: _message(message)]
         end
       end
 
@@ -174,6 +174,10 @@ module Hanami
       # @api private
       def _format(hash)
         hash.map { |k, v| "#{k}=#{v}" }.join(SEPARATOR) + NEW_LINE
+      end
+
+      def _message(message)
+        "'#{message}'"
       end
     end
 
@@ -193,6 +197,10 @@ module Hanami
       # @api private
       def _format(hash)
         Hanami::Utils::Json.dump(hash)
+      end
+
+      def _message(message)
+        message
       end
     end
 
