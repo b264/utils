@@ -449,6 +449,17 @@ describe Hanami::Logger do
           output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\'[\"foo\"]\'\n"
         end
       end
+
+      it 'wraps messages with spaces into single quotes' do
+        stub_time_now do
+          output =
+            stub_stdout_constant do
+              class TestLogger < Hanami::Logger; end
+              TestLogger.new.info('This is a message with spaces')
+            end
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\'This is a message with spaces\'\n"
+        end
+      end
     end
   end
 end
