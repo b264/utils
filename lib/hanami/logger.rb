@@ -177,6 +177,7 @@ module Hanami
       end
 
       def _message(message)
+        message = message.gsub("\"", "\\\"") if message.is_a?(String)
         %("#{message}")
       end
     end

@@ -450,14 +450,36 @@ describe Hanami::Logger do
         end
       end
 
-      it 'wraps messages with spaces into single quotes' do
+      it 'wraps messages with spaces' do
         stub_time_now do
           output =
             stub_stdout_constant do
               class TestLogger < Hanami::Logger; end
-              TestLogger.new.info("This is a message with quotes \" ' and with spaces")
+              TestLogger.new.info("This is a message with spaces")
             end
-          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"This is a message with quotes \" ' and with spaces\"\n"
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"This is a message with spaces\"\n"
+        end
+      end
+
+      it 'wraps messages with a single quote' do
+        stub_time_now do
+          output =
+            stub_stdout_constant do
+              class TestLogger < Hanami::Logger; end
+              TestLogger.new.info("This is a message with a single ' quote")
+            end
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"This is a message with a single ' quote\"\n"
+        end
+      end
+
+      it 'wraps messages with double quotes' do
+        stub_time_now do
+          output =
+            stub_stdout_constant do
+              class TestLogger < Hanami::Logger; end
+              TestLogger.new.info('This is a message with double " quotes')
+            end
+          output.must_equal "app=Hanami severity=INFO time=1988-09-01T00:00:00+00:00 message=\"This is a message with double \\\" quotes\"\n"
         end
       end
     end
